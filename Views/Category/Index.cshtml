@@ -1,0 +1,55 @@
+﻿@model PagedList.IPagedList<Blog.Models.category>
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_LayoutBackend.cshtml";
+}
+<div class="category">
+    <div class="backend-header">
+        <p><strong class="category-title">List catégories</strong></p>
+        <div id="alert-message" class="alert-message alert d-none">
+        </div>
+        <div class="actions">
+            <a class="btn float-right btn-danger" onclick="Blog.manyRequestDel('Category/ManyDelete')">Supprimer cochées</a>
+            <a class="btn float-right btn-success mr-3" onclick="Blog.addLayer('Ajouter une catégorie', 'Category/AddCate')">Ajouter</a>
+        </div>
+    </div>
+    <div class="category-body">
+     <form name="myform" id="myform" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                        <th scope="col">#</th>
+                        <th scope="col">Category Title</th>
+                        <th scope="col">En Menu</th>
+                        <th class="text-center" scope="col">Opération</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td class="tc"><input name="id[]" value="@c.id" type="checkbox" class="singleChoose"></td>
+                            <td>@c.id</td>
+                            <td>@c.title</td>
+                            <td>
+                                @if (c.is_menu == true) {
+                                    <span class="ml-3 label-tips label-success">Oui</span>
+                                } else  {
+                                    <span class="ml-3 label-tips label-warning">Non</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-primary" onclick="Blog.updateLayer(@c.id, 'Modifier une catégorie', 'Category/UpdateCate?id=')">Modifier</a>
+                                <a class="btn btn-danger" href="#" onclick="Blog.RequestDel(@c.id, this, 'Category/processDelete')">Supprimer</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </form>
+    </div>
+ </div>

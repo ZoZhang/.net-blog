@@ -1,0 +1,63 @@
+﻿@model PagedList.IPagedList<Blog.Models.article>
+@using PagedList.Mvc;
+@{ 
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+    ViewBag.Title = ViewData["Title"];
+    var i = 1;
+}
+
+  <header class="masthead @ViewBag.PageClass">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            @if(!String.IsNullOrEmpty(ViewBag.CategoryTitle)) {
+                <h2 class="text-center">Catégorie @ViewBag.CategoryTitle</h2>
+            } else {
+                <h1>.Net Blog</h1>
+                <span class="subheading">Projet .Net MVC</span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="col-lg-8 col-md-10 mx-auto">
+    @if(Model != null) {
+
+        foreach (var a in Model)
+        {
+            var desc = a.content;
+            if (desc.Length > 200)
+            {
+                desc = desc.Substring(0, 350)+"...";
+            }
+
+            <div class="post-preview">
+              <a href="~/Article/Detail?id=@a.id">
+                <h3 class="post-title">@a.title</h3>
+              </a>
+                    <span class="meta"><strong>Publié: </strong>@a.users.email &nbsp;&nbsp;
+                    <strong>Catégorie: </strong> @Html.ActionLink(@a.category.title, "CategoryDetail", "Home", new { id =@a.category.id }, new {})&nbsp;&nbsp;
+                    <strong>Date: </strong> @a.create_at</span>
+                    <hr/>
+
+                <div class="description">
+                    <p>@Html.Raw(desc)</p>
+                </div>
+            </div>
+            <hr>
+            i++;
+        }
+     } else {
+       <p>Il n'y pas d'article.</p>
+     }
+  </div>
+
+<!-- Pager -->
+<div class="paging text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

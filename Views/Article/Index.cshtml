@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<Blog.Models.article>
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_LayoutBackend.cshtml";
+}
+<div class="category">
+    <div class="backend-header">
+        <p><strong class="category-title">List d'article</strong></p>
+        <div id="alert-message" class="alert-message alert d-none">
+        </div>
+        <div class="actions">
+            <a class="btn float-right btn-danger" onclick="Blog.manyRequestDel('Article/ManyDelete')">Supprimer cochées</a>
+            <a class="btn float-right btn-success mr-3" href="Article/addArticle">Ajouter</a>
+        </div>
+    </div>
+    <div class="article-body">
+     <form name="myform" id="myform" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                        <th scope="col" class="d-none">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Auteur</th>
+                        <th scope="col">Date</th>
+                        <th class="text-center" scope="col">Opération</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model)
+                    {
+                        <tr>
+                            <td class="tc"><input name="id[]" value="@a.id" type="checkbox" class="singleChoose"></td>
+                            <td class="d-none">@a.id</td>
+                            <td>@a.title</td>
+                            <td>@a.category.title</td>
+                            <td>@a.users.email</td>
+                            <td>@a.create_at</td>
+                            <td class="text-center">
+                                <a class="btn btn-success" href="~/Article/Detail?id=@a.id" target="_blank">Prévisualiser</a>
+                                <a class="btn btn-primary" href="~/Article/UpdateArticle?id=@a.id">Modifier</a>
+                                <a class="btn btn-danger" href="#" onclick="Blog.RequestDel(@a.id, this, 'Article/processDelete')">Supprimer</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </form>
+    </div>
+ </div>

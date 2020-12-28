@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Blog.Models.comments>
+@{
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+    ViewBag.Title = ViewBag.atitle;
+}
+ <!-- Page Header -->
+  <header class="masthead articlepage">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1 class="text-left">@ViewBag.stitle</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <span class="meta"><strong>Publié: </strong>@ViewBag.author &nbsp;&nbsp;
+            <strong>Catégorie: </strong><a href="@Url.Action("CategoryDetail", "Home")/@ViewBag.aid">@ViewBag.atitle</a>&nbsp;&nbsp;
+            <strong>Date: </strong> @ViewBag.date</span>
+            <hr/>
+            <div class="article-content">
+             @Html.Raw(ViewBag.content)
+            </div>
+               <hr/>
+
+            @if(Model != null) {
+               <div class="comments-list row">
+                     @foreach (var c in Model)
+                     {
+                        <div class="thumbnail mr-3">
+                         <img class="img-responsive user-photo" src="https://i.pravatar.cc/150?u=@c.username.Trim()">
+                        </div>
+
+                        <div class="panel panel-default mt-2 w-75">
+                            <div class="panel-heading">
+                                <strong>@c.username</strong>
+                                <span class="text-muted float-right">commenté à @c.create_at</span>
+                            </div>
+                            <div class="panel-body">@c.content</div>
+                        </div>
+                     }
+               </div>
+                    <hr/>
+            }
+            <p id="alert-message" class="alert d-none mb-3"></p>
+            <form class="article-comments form-style1" method="post" id="articleCommentsAdd" action="/Comments/ProcessAdd">
+                  <input type="hidden" name="article_id" value="@ViewBag.sid"/>
+                  <div class="columns">
+                    <div class="small-9">
+                        <label for="username" class="text-left middle"><strong>Nom&nbsp;&nbsp;</strong></label>
+                        <input type="text" id="username" class="form-control text-left" name="username" value="" placeholder="Veuillez saisir votre nom" required>
+                    </div>
+                  </div>
+
+                  <div class="columns">
+                    <div class="small-9">
+                        <label for="email" class="text-left middle"><strong>Email</strong></label>
+                        <input type="email" id="email" class="form-control text-left" name="email" value="" placeholder="Veuillez saisir votre adresse e-mail" required>
+                    </div>
+                   </div>
+
+                  <div class="columns">
+                    <div class="small-3 columns text-left">
+                        <label for="content" class=" middle"><strong>Commentaire</strong></label>
+                    </div>
+                    <div class="small-9 columns">
+                        <textarea id="comment" class="form-control" style="min-height: 150px" name="comment" placeholder="Veuillez saisir votre commentaire" required></textarea>
+                    </div>
+                 </div>
+
+                <div class="input-group-button mt-3">
+                    <input type="submit" class="button" value="Envoie">
+                </div>
+             </form>
+        </div>
+      </div>
+    </div>
+  </article>

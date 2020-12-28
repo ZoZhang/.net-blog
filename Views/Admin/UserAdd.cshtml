@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayouyHeader.cshtml";
+}
+<form id="form-user-update" action="ProcessAdd" method="post" class="w-75 m-auto pt-3">
+    <div id="alert-message" class="alert-message alert d-none">
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" value="" required/>
+        <div class="custom-radio custom-control-inline  mt-3 mb-3">
+           <label for="utilisateur" class="mr-3">Type:</label>
+          <input type="radio" id="utilisateur" name="isAdmin" value="user" class="custom-control-input" checked>
+          <label class="custom-control-label ml-3" for="utilisateur">Utilisateur</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="administrateur" name="isAdmin" value="admin" class="custom-control-input">
+          <label class="custom-control-label" for="administrateur">Administrateur</label>
+        </div>
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="pwd" name="pwd" value="" required/>
+        <label for="pwdd">Confirme Password:</label>
+        <input type="password" class="form-control" id="pwdd" name="pwdd" required/>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary mr-5">Enregistrer</button>
+        </div>
+    </div>
+</form>
+

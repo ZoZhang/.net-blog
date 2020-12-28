@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/blog-mvcdbserver/databases/Blog_MVC",
+      "type": "mssql.azure",
+      "connectionId": "BlogEntities",
+      "secretStore": null
+    }
+  }
+}

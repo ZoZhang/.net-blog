@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Blog.Models.category>
+@{
+    ViewBag.Title = "addArticle";
+    Layout = "~/Views/Shared/_LayoutBackend.cshtml";
+}
+
+<p><h4>Ajouter un article</h4></p>
+<form id="form-article-update" class="form-article-update" action="ProcessAdd" name="form-article-add" enctype="multipart/form-data">
+    <table class="insert-tab" width="100%">
+        <tbody>
+            <tr>
+                <th><i class="require-red">*</i>Title：</th>
+                <td>
+                    <div class="form-outline">
+                        <input class="form-control form-control-lg required" id="title" name="title" size="50" value="" type="text" required>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th width="120"><i class="require-red">*</i>Catégorie：</th>
+                <td>
+                    <div class="form-outline">
+                        <select name="catid" id="catid" class="required form-control form-control-lg" required>
+                            @foreach (var c in Model)
+                            {
+                                <option value="@c.id">@c.title</option>
+                            }
+                        </select>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Auteur：</th>
+                <td>
+                    <div class="form-outline">
+                        <input class="form-control form-control-lg" name="author" size="50" value="@ViewBag.author" type="text" readonly required></td>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Contenue：</th>
+                <td>
+                <div class="form-outline">
+                  <textarea class="form-control" id="article-textarea" name="content" type="text/plain" rows="20" required></textarea>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                   <div class="text-center mt-2">
+                         <button type="submit" class="btn btn-primary mr-5">Enregistrer</button>
+                         <input type="reset" class="btn btn-warning" value="Recouvrer">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<br/>

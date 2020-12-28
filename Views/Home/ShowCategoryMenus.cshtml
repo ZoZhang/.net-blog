@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Blog.Models.category>
+
+    @foreach (var c in Model)
+    {
+        <li class="nav-item">
+            @Html.ActionLink(c.title, "CategoryDetail", "Home", new { id =c.id }, new {})
+        </li>
+    }
+

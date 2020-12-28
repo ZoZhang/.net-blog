@@ -1,0 +1,61 @@
+﻿@model PagedList.IPagedList<Blog.Models.comments>
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_LayoutBackend.cshtml";
+}
+<div class="category">
+    <div class="backend-header">
+        <p><strong class="category-title">List commentaires</strong></p>
+        <div id="alert-message" class="alert-message alert d-none">
+        </div>
+        <div class="actions">
+            <a class="btn btn-primary" onclick="Blog.RequestUpdateStatus('', true, 'Comments/UpdateStatus')">Activé</a>
+            <a class="btn btn-danger" href="#" onclick="Blog.RequestUpdateStatus('', false, 'Comments/UpdateStatus')">Déactive</a>
+        </div>
+    </div>
+    <div class="category-body">
+     <form name="myform" id="myform" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                        <th scope="col">Article</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Commentaire</th>
+                        <th scope="col">Affiché</th>
+                        <th scope="col">Date</th>
+                        <th class="text-center" scope="col">Opération</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td class="tc"><input name="id[]" value="@c.id" type="checkbox" class="singleChoose"></td>
+                            <td><a  href="~/Article/Detail?id=@c.article.id" target="_blank">@c.article.title</a></td>
+                            <td>@c.username</td>
+                            <td>@c.email</td>
+                            <td>@c.content</td>
+                            <td>
+                                @if (c.is_show == true) {
+                                    <span class="ml-3 label-tips label-success">Oui</span>
+                                } else  {
+                                    <span class="ml-3 label-tips label-danger">Non</span>
+                                }
+                            </td>
+                            <td>@c.create_at</td>
+                            <td class="text-center">
+                                <a class="btn btn-primary" onclick="Blog.RequestUpdateStatus(@c.id, true, '/Comments/UpdateStatus')">Activé</a>
+                                <a class="btn btn-danger" href="#" onclick="Blog.RequestUpdateStatus(@c.id, false, '/Comments/UpdateStatus')">Déactive</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </form>
+    </div>
+ </div>

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayouyHeader.cshtml";
+}
+<form id="form-category-update" action="ProcessAdd" method="post" class="w-75 m-auto pt-3">
+    <div id="alert-message" class="alert-message alert d-none">
+    </div>
+    <div class="form-group">
+        <label for="cateName">Catégory Title</label>
+        <input type="text" class="form-control" id="cateName" name="cateName" placeholder="Entrez votre title" value="@ViewBag.title" required/>
+    </div>
+    <div class="form-group mt-3">
+        <label for="isMenu">Catégory in navigation</label>
+        <select class="form-control" id="isMenu" name="isMenu">
+          <option value="True" if(@ViewBag.is_menu == true) ? checked : "">Oui</option>
+          <option value="False" if(@ViewBag.is_menu == false) ? checked : "">Non</option>
+        </select>
+    </div>
+    <div class="text-center mt-5">
+        <button type="submit" class="btn btn-success mr-5">Enregistrer</button>
+    </div>
+</form>

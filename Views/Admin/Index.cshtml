@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<Blog.Models.users>
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_LayoutBackend.cshtml";
+}
+<div class="users">
+    <div class="backend-header">
+        <p><strong class="category-title">List d'utilisateurs</strong></p>
+        <div id="alert-message" class="alert-message alert d-none">
+        </div>
+        @if(@ViewBag.isAdmin == true) {
+            <div class="actions">
+                <a class="btn float-right btn-danger" onclick="Blog.manyRequestDel('/Admin/ManyDelete')">Supprimer cochées</a>
+                <a class="btn float-right btn-success mr-3" onclick="Blog.addLayer('Ajouter une utilisateur', '/Admin/UserAdd')">Ajouter</a>
+            </div>
+        }
+    </div>
+    <div class="user-body">
+
+        @if(@ViewBag.isAdmin == true) {
+         <form name="myform" id="myform" method="post">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                            <th scope="col" class="d-none">#</th>
+                            <th scope="col">E-mail</th>
+                            <th class="text-center" scope="col">Opération</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var u in Model)
+                        {
+                            <tr>
+                                <td class="tc"><input name="id[]" value="@u.id" type="checkbox" class="singleChoose"></td>
+                                <td>@u.email
+                                    @if (u.is_admin == true) {
+                                      <span class="ml-3 label-tips label-success">Administration</span>
+                                    } else  {
+                                          <span class="ml-3 label-tips label-warning">Utilisateur</span>
+                                       }
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-primary" onclick="Blog.updateLayer(@u.id, 'Modifier une utilisateur', '/Admin/UpdateUser?id=')">Modifier</a>
+                                    <a class="btn btn-danger" href="#" onclick="Blog.RequestDel(@u.id, this, '/Admin/processDelete')">Supprimer</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </form>
+        } else {
+                <div>Vous n'avez pas de doits</div>
+        }
+
+    </div>
+ </div>
