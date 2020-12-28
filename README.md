@@ -1,6 +1,12 @@
 ## Blog MVC - ASP .Net
 Un simple blog développe par l'ASP .Net
 
+#### Test en ligne
+*Utilisateur:* test@blog.fr / test<br/>
+*Administrator:* admin@blog.fr / admin
+
+[https://projet-blog-mvc.azurewebsites.net/](https://projet-blog-mvc.azurewebsites.net/)
+
 ### Requis
 * [x] SQL Server 2008
 * [x] ASP .NET Framework 6
@@ -8,15 +14,9 @@ Un simple blog développe par l'ASP .Net
 ### Utilisation
 
 #### Connexion de base de donée
-*Téléchargement && Importè dans SQL Server:* https://github.com/ZoZhang/asp/blog/App_Data/blog-mvc.sql
+*Téléchargement && Importè dans SQL Server:* ./App_Data/blog-mvc.sql
 
 *Changement:* `connectionStrings` dans le fichier `Web.config`
-
-#### Test en ligne
-*Utilisateur:* test@blog.fr / test
-*Administrator:* admin@blog.fr / admin
-
-[https://projet-blog-mvc.azurewebsites.net/](https://projet-blog-mvc.azurewebsites.net/)
 
 ### Fonctionnalités
 
